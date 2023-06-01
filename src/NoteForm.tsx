@@ -87,7 +87,7 @@ export function NoteForm({
               Cancel
             </Button>
           </Link>
-          <Button type="submit" variant="danger">
+          <Button type="submit" style={{backgroundColor: "#D31245", border: "none"}}>
             Save
           </Button>
         </Stack>

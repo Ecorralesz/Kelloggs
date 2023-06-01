@@ -53,7 +53,7 @@ NoteListProps) {
       <Row className="justify-content-end mb-4">
         <Col xs="auto">
           <Link to="./new">
-            <Button variant="danger">Create</Button>
+            <Button style={{backgroundColor: "#D31245", border: "none"}}>Create</Button>
           </Link>
           {/* <Button
               onClick={() => setEditTagsModalIsOpen(true)}

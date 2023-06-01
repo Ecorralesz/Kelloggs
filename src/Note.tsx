@@ -19,14 +19,14 @@ export function Note({onDelete}: NoteProps) {
       <Col xs="auto">
           <Stack gap={2} direction="horizontal">
             <Link to={`/${note.id}/edit`}>
-              <Button variant="primary">Edit</Button>
+              <Button style={{backgroundColor: "#D31245", border: "none"}}>Edit</Button>
             </Link>
             <Button 
             onClick={() => {
               onDelete(note.id)
               navigate("/")
             }}
-            variant="outline-danger">Delete</Button>
+            variant="outline-warning">Delete</Button>
             <Link to="/">
             <Button variant="outline-secondary">Back</Button>
             </Link>
