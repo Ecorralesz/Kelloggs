@@ -47,7 +47,7 @@ function App() {
 
   useEffect(() => {
     // Fetch notes
-    axios.get('http://localhost:3000/emails')
+    axios.get('https://kelloggs-api.onrender.com/emails')
       .then((response) => {
         setNotes(response.data);
       })
@@ -71,7 +71,7 @@ function App() {
   function onCreateNote({ ...data }: NoteData) {
     // Make the HTTP POST request to create a new note
     axios
-      .post('http://localhost:3000/emails', data)
+      .post('https://kelloggs-api.onrender.com/emails', data)
       .then((response) => {
         // Get the newly created note from the response
         const newNote: RawNote = response.data;
@@ -89,7 +89,7 @@ function App() {
   function onUpdateNote(id: string, { ...data }: NoteData) {
     // Make the HTTP PUT request to update the note
     axios
-      .patch(`http://localhost:3000/emails/${id}`, data)
+      .patch(`https://kelloggs-api.onrender.com/emails/${id}`, data)
       .then((response) => {
         // Get the updated note data from the response
         const updatedNoteData: RawNote = response.data;
@@ -114,7 +114,7 @@ function App() {
   function onDeleteNote(id: string) {
     // Make the HTTP DELETE request to delete the note
     axios
-      .delete(`http://localhost:3000/emails/${id}`)
+      .delete(`https://kelloggs-api.onrender.com/emails/${id}`)
       .then(() => {
         // Update the state by removing the deleted note
         setNotes((prevNotes) => {
