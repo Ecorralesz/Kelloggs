@@ -1,6 +1,7 @@
 import { NoteData } from "./App";
 import { NoteForm } from "./NoteForm";
 import { useNote } from "./NoteLayout";
+import Banner from "./component/Banner";
 
 type EditNoteProps = {
   onSubmit: (id: string, data: NoteData) => void;
@@ -12,7 +13,7 @@ export function EditNote({ onSubmit }: EditNoteProps) {
   const note = useNote()
   return (
     <>
-      <h1 className="mb-4">Edit Note</h1>
+      <Banner/>
       <NoteForm
         subject={note.subject}
         markdown={note.markdown}

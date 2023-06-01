@@ -1,5 +1,6 @@
 import { NoteData } from "./App";
 import { NoteForm } from "./NoteForm";
+import Banner from "./component/Banner";
 
 type NewNoteProps = {
   onSubmit: (data: NoteData) => void;
@@ -10,7 +11,7 @@ type NewNoteProps = {
 export function NewNote({ onSubmit}: NewNoteProps) {
   return (
     <>
-      <h1 className="mb-4">New Note</h1>
+      <Banner/>
       <NoteForm
         onSubmit={onSubmit}
         // onAddTag={onAddTag}
