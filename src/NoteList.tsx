@@ -53,7 +53,7 @@ NoteListProps) {
       <Row className="justify-content-end mb-4">
         <Col xs="auto">
           <Link to="./new">
-            <Button variant="primary">Create</Button>
+            <Button variant="danger">Create</Button>
           </Link>
           {/* <Button
               onClick={() => setEditTagsModalIsOpen(true)}

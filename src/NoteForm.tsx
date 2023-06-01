@@ -82,14 +82,14 @@ export function NoteForm({
           />
         </Form.Group>
         <Stack direction="horizontal" gap={2} className="justify-content-end">
-          <Button type="submit" variant="primary">
-            Save
-          </Button>
           <Link to="..">
             <Button type="button" variant="outline-secondary">
               Cancel
             </Button>
           </Link>
+          <Button type="submit" variant="danger">
+            Save
+          </Button>
         </Stack>
       </Stack>
     </Form>
