@@ -9,11 +9,12 @@ const Banner = () => {
         justifyContent: "center",
         flexDirection: "column",
         alignItems: "center",
-        marginBottom: '2rem'
+        marginBottom: '2rem',
+        padding: "0"
       }}
     >
       <img src={IMG1} alt="" width={"40%"} />
-      <ul>
+      <ul style={{padding:"0"}}>
         <li>
           <input type="checkbox" />
           <div className="letter" >i</div >
