@@ -2,6 +2,8 @@ import {   Button, Col, Row, Stack } from "react-bootstrap";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import { Link, useNavigate } from "react-router-dom";
 import { useNote } from "./NoteLayout";
+import parse from "html-react-parser";
+import { useRef } from "react";
 
 type NoteProps = {
   onDelete: (id: string) => void
@@ -10,6 +12,7 @@ type NoteProps = {
 export function Note({onDelete}: NoteProps) {
   const note = useNote()
   const navigate = useNavigate()
+  const divRef = useRef<HTMLDivElement>(null);
 
   return <>
     <Row className="align-items-center mb-4">
@@ -33,6 +36,6 @@ export function Note({onDelete}: NoteProps) {
           </Stack>
         </Col>
     </Row>
-    <ReactMarkdown>{note.markdown}</ReactMarkdown>
+    <div ref={divRef} style={{fontSize: "0.8rem"}}>{parse(note.markdown)}</div>
   </>
 }
