@@ -29,19 +29,6 @@ export function NoteForm({
     navigate("..");
   }
 
-  function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key === "Enter") {
-      const selection = window.getSelection();
-      const link = selection?.focusNode?.parentElement;
-      const href = link?.getAttribute("href");
-      if (href) {
-        e.preventDefault();
-        const url = new URL(href);
-        window.open(url.href, "_blank");
-      }
-    }
-  }
-  
   
 
   return (
@@ -73,7 +60,6 @@ export function NoteForm({
               ],
             }}
             formats={["header", "bold", "italic", "underline", "link"]}
-            onKeyDown={handleKeyDown} // Added event handler for keydown event
           />
         </Form.Group>
         <Stack direction="horizontal" gap={2} className="justify-content-end">
