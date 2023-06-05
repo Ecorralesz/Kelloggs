@@ -47,6 +47,7 @@ function App() {
   const [notes, setNotes] = useState<RawNote[]>([]);
   // const [tags, setTags] = useState<Tag[]>([]);
 
+
   useEffect(() => {
     // Fetch notes
     axios

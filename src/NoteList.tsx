@@ -22,7 +22,6 @@ export function NoteList({ notes }: NoteListProps) {
   const [subject, setSubject] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
-
   const filteredNotes = useMemo(() => {
     return notes.filter((note) => {
       return (
@@ -80,12 +79,8 @@ export function NoteList({ notes }: NoteListProps) {
   const { View } = useLottie(lottieOptions);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
+    setLoading(false); // Set loading to false when notes are fetched
+  }, [notes]);
 
   return (
     <>
@@ -114,7 +109,13 @@ export function NoteList({ notes }: NoteListProps) {
         </Row>
       </Form>
       {loading ? (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <div style={{ width: 600, height: 600 }}>{View}</div>
         </div>
       ) : (
