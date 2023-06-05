@@ -2,99 +2,72 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { NewNote } from "./NewNote";
-import { useLocalStorage } from "./useLocalStorage";
-import { useEffect, useMemo } from "react";
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { NoteList } from "./NoteList";
 import { NoteLayout } from "./NoteLayout";
 import { Note } from "./Note";
 import { EditNote } from "./EditNote";
-import { useState } from "react";
+
 
 export type Note = {
   id: string;
-  // tags: Tag[]; // Include the 'tags' property
-  subject: string; // Include the 'subject' property
+  subject: string;
 } & NoteData;
 
 export type RawNote = {
   id: string;
-  // tags: Tag[]; // Include the 'tags' property
-  subject: string; // Include the 'subject' property
+  subject: string;
 } & RawNoteData;
 
 export type RawNoteData = {
   subject: string;
   markdown: string;
-  // tagIds: string[];
 };
 
 export type NoteData = {
   subject: string;
   markdown: string;
-  // tags: Tag[];
 };
-
-// export type Tag = {
-//   id: string;
-//   label: string;
-// };
 
 function App() {
   const [notes, setNotes] = useState<RawNote[]>([]);
-  // const [tags, setTags] = useState<Tag[]>([]);
-
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Fetch notes
-    axios.get('https://kelloggs-api.onrender.com/emails')
+    axios
+      .get("https://kelloggs-api.onrender.com/emails")
       .then((response) => {
         setNotes(response.data);
       })
       .catch((error) => {
-        // Handle error
-        console.error('Error fetching notes:', error);
+        console.error("Error fetching notes:", error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  
-    // Fetch tags
-    // axios.get('http://localhost:3000/tags')
-    //   .then((response) => {
-    //     setTags(response.data);
-    //   })
-    //   .catch((error) => {
-    //     // Handle error
-    //     console.error('Error fetching tags:', error);
-    //   });
   }, []);
-
 
   function onCreateNote({ ...data }: NoteData) {
     // Make the HTTP POST request to create a new note
     axios
-      .post('https://kelloggs-api.onrender.com/emails', data)
+      .post("https://kelloggs-api.onrender.com/emails", data)
       .then((response) => {
-        // Get the newly created note from the response
         const newNote: RawNote = response.data;
-  
-        // Update the state with the newly created note
         setNotes((prevNotes) => [...prevNotes, newNote]);
       })
       .catch((error) => {
-        // Handle error
-        console.error('Error creating note:', error);
+        console.error("Error creating note:", error);
       });
   }
-  
 
   function onUpdateNote(id: string, { ...data }: NoteData) {
     // Make the HTTP PUT request to update the note
     axios
       .patch(`https://kelloggs-api.onrender.com/emails/${id}`, data)
       .then((response) => {
-        // Get the updated note data from the response
         const updatedNoteData: RawNote = response.data;
-  
-        // Update the state with the modified note
         setNotes((prevNotes) => {
           return prevNotes.map((note) => {
             if (note.id === id) {
@@ -106,8 +79,7 @@ function App() {
         });
       })
       .catch((error) => {
-        // Handle error
-        console.error('Error updating note:', error);
+        console.error("Error updating note:", error);
       });
   }
 
@@ -116,78 +88,48 @@ function App() {
     axios
       .delete(`https://kelloggs-api.onrender.com/emails/${id}`)
       .then(() => {
-        // Update the state by removing the deleted note
         setNotes((prevNotes) => {
           return prevNotes.filter((note) => note.id !== id);
         });
       })
       .catch((error) => {
-        // Handle error
-        console.error('Error deleting note:', error);
+        console.error("Error deleting note:", error);
       });
   }
 
-  // function addTag(tag: Tag) {
-  //   setTags((prev) => [...prev, tag]);
-  // }
-
-  // function updateTag(id: string, label: string) {
-  //   setTags((prevTags) => {
-  //     return prevTags.map((tag) => {
-  //       if (tag.id === id) {
-  //         return { ...tag, label };
-  //       } else {
-  //         return tag;
-  //       }
-  //     });
-  //   });
-  // }
-
-  // function deleteTag(id: string) {
-  //   setTags((prevTags) => {
-  //     return prevTags.filter((tag) => tag.id !== id);
-  //   });
-  // }
 
   return (
     <Container className="my-4">
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <NoteList
-              notes={notes}
-              // availableTags={tags}
-              // onUpdateTag={updateTag}
-              // onDeleteTag={deleteTag}
-            />
-          }
-        />
-        <Route
-          path="/new"
-          element={
-            <NewNote
-              onSubmit={onCreateNote}
-              // onAddTag={addTag}
-              // availableTags={tags}
-            />
-          }
-        />
-        <Route path="/:id" element={<NoteLayout notes={notes} />}>
-          <Route index element={<Note onDelete={onDeleteNote} />} />
+        <Routes>
           <Route
-            path="edit"
+            path="/"
             element={
-              <EditNote
-                onSubmit={onUpdateNote}
-                // onAddTag={addTag}
-                // availableTags={tags}
+              <NoteList
+                notes={notes}
               />
             }
           />
-        </Route>
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+          <Route
+            path="/new"
+            element={
+              <NewNote
+                onSubmit={onCreateNote}
+              />
+            }
+          />
+          <Route path="/:id" element={<NoteLayout notes={notes} />}>
+            <Route index element={<Note onDelete={onDeleteNote} />} />
+            <Route
+              path="edit"
+              element={
+                <EditNote
+                  onSubmit={onUpdateNote}
+                />
+              }
+            />
+          </Route>
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
     </Container>
   );
 }

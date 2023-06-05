@@ -4,6 +4,8 @@ import { useState, useMemo, useEffect } from "react";
 import styles from "./NoteList.module.css";
 import Banner from "./component/Banner";
 import Chat from "./component/Chat";
+import { useLottie } from "lottie-react";
+import animationData from "./assets/rollerc.json";
 
 type SimplifiedNote = {
   subject: string;
@@ -19,6 +21,7 @@ const NOTES_PER_PAGE = 16;
 export function NoteList({ notes }: NoteListProps) {
   const [subject, setSubject] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   const filteredNotes = useMemo(() => {
     return notes.filter((note) => {
@@ -56,7 +59,6 @@ export function NoteList({ notes }: NoteListProps) {
               variant={currentPage === pageNumber ? "danger" : "secondary"}
               onClick={() => paginate(pageNumber)}
               className="me-2"
-              
             >
               {pageNumber}
             </Button>
@@ -65,6 +67,25 @@ export function NoteList({ notes }: NoteListProps) {
       </div>
     );
   };
+
+  const lottieOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
+  const { View } = useLottie(lottieOptions);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
@@ -92,11 +113,19 @@ export function NoteList({ notes }: NoteListProps) {
           </Col>
         </Row>
       </Form>
-      <Row xs={1} sm={2} lg={3} xl={4} className="g-3">
-        {renderNotes}
-      </Row>
-      {renderPagination()}
-      <Chat />
+      {loading ? (
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <div style={{ width: 600, height: 600 }}>{View}</div>
+        </div>
+      ) : (
+        <>
+          <Row xs={1} sm={2} lg={3} xl={4} className="g-3">
+            {renderNotes}
+          </Row>
+          {renderPagination()}
+          <Chat />
+        </>
+      )}
     </>
   );
 }
