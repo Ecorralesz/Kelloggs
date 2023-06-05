@@ -8,9 +8,10 @@
 
 .chat {
   position: absolute;
-  right: 0;
-  bottom: 0;
+  right: 6%;
+  bottom: 0%;
   padding: 2rem;
+  z-index: -3;
 }
 
 .chat a span {
