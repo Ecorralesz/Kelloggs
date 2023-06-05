@@ -5,7 +5,6 @@ import styles from "./NoteList.module.css";
 import Banner from "./component/Banner";
 import Chat from "./component/Chat";
 
-
 type SimplifiedNote = {
   subject: string;
   id: string;
@@ -15,18 +14,57 @@ type NoteListProps = {
   notes: SimplifiedNote[];
 };
 
+const NOTES_PER_PAGE = 16;
+
 export function NoteList({ notes }: NoteListProps) {
   const [subject, setSubject] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredNotes = useMemo(() => {
     return notes.filter((note) => {
       return (
         subject === "" ||
-        note.subject.toLowerCase().includes(subject.toLocaleLowerCase())
+        note.subject.toLowerCase().includes(subject.toLowerCase())
       );
     });
   }, [subject, notes]);
 
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const indexOfLastNote = currentPage * NOTES_PER_PAGE;
+  const indexOfFirstNote = indexOfLastNote - NOTES_PER_PAGE;
+  const currentNotes = filteredNotes.slice(indexOfFirstNote, indexOfLastNote);
+
+  const renderNotes = currentNotes.map((note) => (
+    <Col key={note.id}>
+      <NoteCard id={note.id} subject={note.subject} />
+    </Col>
+  ));
+
+  const renderPagination = () => {
+    const pageNumbers = Math.ceil(filteredNotes.length / NOTES_PER_PAGE);
+    if (pageNumbers === 1) return null;
+
+    return (
+      <div className="text-center mt-4">
+        {Array.from({ length: pageNumbers }, (_, index) => index + 1).map(
+          (pageNumber) => (
+            <Button
+              key={pageNumber}
+              variant={currentPage === pageNumber ? "danger" : "secondary"}
+              onClick={() => paginate(pageNumber)}
+              className="me-2"
+              
+            >
+              {pageNumber}
+            </Button>
+          )
+        )}
+      </div>
+    );
+  };
 
   return (
     <>
@@ -55,12 +93,9 @@ export function NoteList({ notes }: NoteListProps) {
         </Row>
       </Form>
       <Row xs={1} sm={2} lg={3} xl={4} className="g-3">
-        {filteredNotes.map((note) => (
-          <Col key={note.id}>
-            <NoteCard id={note.id} subject={note.subject} />
-          </Col>
-        ))}
+        {renderNotes}
       </Row>
+      {renderPagination()}
       <Chat />
     </>
   );
@@ -84,7 +119,6 @@ function NoteCard({ id, subject }: SimplifiedNote) {
     </Card>
   );
 }
-
 
 
 // function EditTagsModal({
