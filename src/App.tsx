@@ -216,7 +216,7 @@ function App() {
       {/* <div className="LottieImage">
         {View1}
       </div> */}
-      <div className="LottieImage2" style={{width: 800}}>
+      <div className="LottieImage2" style={{width: 400}}>
         {View2}
       </div>
     </Container>
