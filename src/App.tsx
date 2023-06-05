@@ -151,18 +151,18 @@ function App() {
   //   });
   // }
 
-  //Lottie Options
-  // const lottieOptions = {
-  //   loop: true,
-  //   autoplay: true,
-  //   animationData: animationData,
-  //   rendererSettings: {
-  //     preserveAspectRatio: "xMidYMid slice",
-  //   },
-  // };
+  // Lottie Options
+  const lottieOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   const lottieOptions2 = {
-    loop: false,
+    loop: true,
     autoplay: true,
     animationData: animationData2,
     rendererSettings: {
@@ -170,7 +170,7 @@ function App() {
     },
   };
 
-  // const { View: View1 } = useLottie(lottieOptions);
+  const { View: View1 } = useLottie(lottieOptions);
   const { View: View2 } = useLottie(lottieOptions2);
   
   
@@ -219,6 +219,9 @@ function App() {
       </div> */}
       <div className="LottieImage2" style={{width: 400}}>
         {View2}
+      </div>
+      <div className="LottieImage" style={{width: 400}}>
+        {View1}
       </div>
     </Container>
   );
