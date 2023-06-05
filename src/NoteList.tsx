@@ -5,7 +5,7 @@ import styles from "./NoteList.module.css";
 import Banner from "./component/Banner";
 import Chat from "./component/Chat";
 import { useLottie } from "lottie-react";
-import animationData from "./assets/rollerc.json";
+import animationData from "./assets/Loading.json";
 
 type SimplifiedNote = {
   subject: string;
