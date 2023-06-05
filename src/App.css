@@ -1,0 +1,13 @@
+/* .LottieImage {
+  z-index: -1;
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+} */
+
+.LottieImage2 {
+  z-index: -1;
+  position: absolute;
+  left: -5%;
+  top: 20%;
+}
