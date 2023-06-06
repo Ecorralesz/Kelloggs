@@ -31,7 +31,7 @@
 @media only screen and (max-width: 768px) {
   .chat {
     right: 40%;
-    top: 30%;
+    top: 20%;
     padding: 2rem;
   }
 }
