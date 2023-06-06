@@ -21,6 +21,8 @@
     top: 0%;
   }
 
-
+  .LottieImage {
+    display: none;
+  }
 }
 
