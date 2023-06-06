@@ -11,10 +11,33 @@
   right: 6%;
   bottom: 0%;
   padding: 2rem;
-  z-index: -3;
 }
 
 .chat a span {
   font-size: 5rem;
   color: #D31245;
+}
+
+
+
+@media only screen and (max-width: 1800px) {
+  .chat {
+    right: 1%;
+    top: 8%;
+    padding: 2rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .chat {
+    right: 40%;
+    top: 30%;
+    padding: 2rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .chat {
+    display: none;
+  }
 }
