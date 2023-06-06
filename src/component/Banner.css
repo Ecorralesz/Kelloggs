@@ -71,6 +71,16 @@ input[type="checkbox"]:checked ~ div {
   }
 }
 
+@media only screen and (max-width: 1450px) {
+  div .letter{
+    height: 60px;
+    width: 60px;
+    background: #D31245;
+    color: #FFFFFF;
+    font-size: 40px;
+  }
+}
+
 @media only screen and (max-width: 768px) {
   div .letter{
     height: 30px;
@@ -81,7 +91,6 @@ input[type="checkbox"]:checked ~ div {
     cursor: pointer;
     margin: 0 4px;
   }
-  
 }
 
 
