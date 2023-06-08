@@ -86,9 +86,9 @@ export function NoteList({ notes }: NoteListProps) {
     <>
       <Banner />
       <Row className="justify-content-end mb-4">
-        <Col xs="auto">
+        <Col xs="auto" style={{ zIndex: '5' }}>
           <Link to="./new">
-            <Button style={{ backgroundColor: "#D31245", border: "none" }}>
+            <Button style={{ backgroundColor: "#D31245", border: "none"}}>
               Create
             </Button>
           </Link>
@@ -116,7 +116,7 @@ export function NoteList({ notes }: NoteListProps) {
             alignItems: "center",
           }}
         >
-          <div style={{ width: 600, height: 600 }}>{View}</div>
+          <div style={{ width: 600, height: 600, zIndex: -1 }}>{View}</div>
         </div>
       ) : (
         <>
