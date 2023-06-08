@@ -14,14 +14,16 @@ type SimplifiedNote = {
 
 type NoteListProps = {
   notes: SimplifiedNote[];
+  loading: boolean;
 };
 
 const NOTES_PER_PAGE = 16;
 
-export function NoteList({ notes }: NoteListProps) {
+export function NoteList({ notes, loading }: NoteListProps) {
+  console.log(loading)
   const [subject, setSubject] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const filteredNotes = useMemo(() => {
     return notes.filter((note) => {
       return (
@@ -78,9 +80,6 @@ export function NoteList({ notes }: NoteListProps) {
 
   const { View } = useLottie(lottieOptions);
 
-  useEffect(() => {
-    setLoading(false); // Set loading to false when notes are fetched
-  }, [notes]);
 
   return (
     <>

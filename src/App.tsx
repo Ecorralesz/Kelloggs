@@ -24,6 +24,7 @@ export type RawNote = {
   id: string;
   // tags: Tag[]; // Include the 'tags' property
   subject: string; // Include the 'subject' property
+  loading: boolean;
 } & RawNoteData;
 
 export type RawNoteData = {
@@ -45,6 +46,7 @@ export type NoteData = {
 
 function App() {
   const [notes, setNotes] = useState<RawNote[]>([]);
+  const [loading, setLoading] = useState(true);
   // const [tags, setTags] = useState<Tag[]>([]);
 
 
@@ -54,6 +56,7 @@ function App() {
       .get("https://kelloggs-api.onrender.com/emails")
       .then((response) => {
         setNotes(response.data);
+        setLoading(false)
       })
       .catch((error) => {
         // Handle error
@@ -183,6 +186,7 @@ function App() {
           element={
             <NoteList
               notes={notes}
+              loading={loading}
               // availableTags={tags}
               // onUpdateTag={updateTag}
               // onDeleteTag={deleteTag}
